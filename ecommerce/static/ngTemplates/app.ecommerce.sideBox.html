@@ -1,0 +1,43 @@
+<style media="screen">
+  .couponInput{
+    background:white;
+    outline: none !important;
+    box-shadow: none !important;
+    padding-left:10px !important;
+  }
+  .couponInput:focus{
+    outline: none !important;
+    box-shadow: none !important;
+  }
+</style>
+
+<div class="row" style="background-color:#fbfbfb;margin-top:10%;">
+  <div class="col-md-12" style="padding:40px;">
+    <h6> <strong> Cart Total </strong> </h6>
+    <hr style="border-top: 1px solid #c1bdbd;" />
+    <h6> Subtotal : <span class="pull-right" > <i class="fa {{currency}}"></i> {{total | number}} </span> </h6>
+    <hr style="border-top: 1px solid #c1bdbd;" />
+    <h6> Shipping Cost : <span class="pull-right" > <i class="fa {{currency}}"></i> {{shippingCharges | number}} </span> </h6>
+    <hr style="border-top: 1px solid #c1bdbd;" />
+    <div class="input-group" style="margin-top:35px;border:1px solid #c1bdbd" ng-controller="applyCoupon">
+      <input type="text" class="form-control couponInput"  placeholder="Coupon Code" ng-model="coupon"/>
+      <span class="input-group-btn" >
+        <button type="button" class="btn btn-default" style="border-left:1px solid #c1bdbd" ng-click="getCoupon()"><i class="fa  fa-arrow-right"></i></button>
+      </span>
+    </div>
+    <p ng-if="couponData"> {{couponData.discount}}% discount applied </p>
+    <h6 ng-if="couponData"> Discount : <span class="pull-right" > <i class="fa {{currency}}"></i> {{discountedPrice | number}} </span> </h6>
+      <hr style="border-top: 1px solid #c1bdbd;" />
+    <h6 style="color:var(--themeColor)"> Total : <span style="font-size:35px;color:#ff754a" class="pull-right"> <i class="fa {{currency}}"></i> {{grandTotal | number}} </span> </h6>
+    <button class="btn btn-default" style="background:var(--themeColor);border:1px solid var(--themeColor);color:white;width:100%;margin-top:15px" ng-click="next()" ng-if="data.stage == 'review' || data.stage == 'shippingDetails'">
+      <span ng-if="data.stage == 'review'"> PROCEED FOR CHECKOUT </span>
+      <span ng-if="data.stage == 'shippingDetails'"> PROCEED FOR PAYMENT </span>
+    </button>
+    <button class="btn btn-default" style="border:1px solid var(--themeColor);color:var(--themeColor);width:100%;margin-top:15px" ng-if="data.stage == 'payment'" ng-click="data.modeOfPayment=='COD'? order(): pay()">
+      <span>{{data.modeOfPayment=='COD'? 'Order': 'Pay'}} </span>
+    </button>
+    <button class="btn btn-default" style="border: solid 2px red;width:100%;margin-top:15px" ng-if="data.stage == 'shippingDetails' || data.stage == 'payment'" ng-click="prev()">
+      <span style="color:red;"> GO BACK </span>
+    </button>
+  </div>
+</div>

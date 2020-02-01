@@ -1,0 +1,304 @@
+<style media="screen">
+  .imageemptcart{
+  height:70vh;
+}
+.imagezoom:hover{
+  transform: scale(1.5);
+}
+  @media only screen and (max-width: 480px) {
+    .imageemptcart{
+      width: 100%;
+    }
+}
+</style>
+
+
+<div class="container-fluid" style="padding:30px;font-family: var(--fontStyle)!important;{{topLevelMenu?'margin-top:5vh':''}};" ng-if="cartData.length>0">
+  <div class="container-fluid bg-white" style="display:block;position:relative;min-height:500px;padding-left:0px;">
+
+    <div ng-if="data.stage == 'review' || data.stage == 'shippingDetails' || data.stage == 'payment'" ng-include="'/static/ngTemplates/checkout.steps.html'"></div>
+
+
+    <div class="col-md-9">
+      <div class="container-fluid" style="margin-top:30px;font-family: var(--fontStyle)!important">
+        <div ng-if="data.stage == 'review'">
+          <div>
+            <div class="row">
+              <div class="container-fluid hidden-xs hidden-sm">
+                <div class="row">
+                  <div class="col-md-5">
+                    <span style="font-size:18px;">Product</span>
+                  </div>
+                  <div class="col-md-2">
+                    <span style="font-size:18px;">Rate</span>
+                  </div>
+                  <div class="col-md-2">
+                    <span style="font-size:18px;">Qty</span>
+                  </div>
+                  <div class="col-md-2">
+                    <span style="font-size:18px;">Total</span>
+                  </div>
+                </div>
+                <hr>
+                <div ng-if="cartData" ng-repeat="c in cartData">
+                  <div class="row" style="padding-top:10px;">
+                    <div class="col-md-1" style="overflow:hidden;height:100px">
+                      <img style="width: 100%;" class="img" ng-src="{{c.productVariant.images[0].attachment}}">
+                    </div>
+                    <div class="col-md-4" style="padding-left:0px;padding-top:20px;">
+                      <p>{{c.productVariant.displayName}}</p>
+                    </div>
+                    <div class="col-md-2" style="padding-top:20px">
+                      <span > <strike style="margin-right:15px"> <i class="fa {{currency}}"></i> {{c.productVariant.price.toFixed(2)}} </strike> </span> <br>
+                      <span style="font-size:15px;"><i class="fa {{currency}}"></i>{{c.productVariant.sellingPrice.toFixed(2)}}</span>
+                    </div>
+                    <div class="col-md-2" style="padding-top:20px">
+                      <div class="input-group" style="width:70%;border:1px solid #d7d7d7">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="changeQty(c.pk, $index,'decrement')" style="box-shadow:none!important"><i class="fa fa-minus" ></i></button>
+                        </span>
+                          <input type="text" class="form-control text-center" ng-model="c.qty" name="" value="" min="1"  disabled>
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-default"  ng-click="changeQty(c.pk,$index,'increment')" style="box-shadow:none!important"><i class="fa fa-plus"></i></button>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-2" style="padding-top:20px;color:var(--themeColor)">
+                      <h6 style="color:var(--themeColor);font-size:17px;"> <i class="fa {{currency}}"></i> {{(c.productVariant.sellingPrice * c.qty).toFixed(2) }} </h6>
+                    </div>
+                    <div class="col-md-1" style="padding-top:20px;color:red">
+                      <i class="fa fa-close fa-lg" ng-click="deleteFromCart($index,c.pk)"></i>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row" ng-if="c.product.product.customizable">
+                    <p> <strong>Customization:</strong> </p>
+                    <div class="col-md-6">
+                      <div class="flex-container" ng-if="c.customization.pk">
+                        <div class="">
+                          <img class="imagezoom" src="{{c.customization.image}}" alt="" style="width:200px;height:100px;">
+                        </div>
+                        <div class="">
+                          <span>Comment:</span> {{c.customization.data}}
+                        </div>
+                      </div>
+                      <div class="" ng-if="!c.customization.pk">
+                        <p>No Customization Uploaded</p>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <textarea type="text" class="form-group" name="" value="" ng-model="c.customization.data" placeholder="Type your Customization" rows="3" cols="30" style="resize:none;"></textarea>
+                      <input type="file" name="" value="" file-model="c.customization.image">
+                    </div>
+                    <div class="col-md-2">
+                      <div class="" style="margin-right:0px;">
+                        <button type="button" class="btn btn-info" name="button" ng-click="uploadcustomatcart($index)" style="background-color:#5BC0DE;">Upload</button>
+                      </div>
+                      <div class="">
+                        <button type="button" class="btn btn-danger" name="button" ng-click="deletecustomatcart($index)" ng-if="!c.customisedData.image && c.customization.data !== ''">REMOVE</button>
+                      </div>
+                    </div>
+                  </div>
+                  <hr ng-if="!$last" />
+                </div>
+
+              </div>
+
+
+              <div class="hidden-lg hidden-md">
+
+                <div ng-if="item">
+                  <div class="row" style="font-family: var(--fontStyle)!important">
+                    <div class="col-xs-6" style="overflow:hidden;">
+                      <img style="width: 100%;" class="img" ng-src="{{item.files[0].attachment}}" ng-if="item.files.length>0">
+                      <img style="width: 100%;" class="img" src="/static/images/ecommerce.jpg" ng-if="item.files==null">
+                    </div>
+                    <div class="col-xs-6">
+                      <div class="row" style="padding:0px;">
+                        <h6 ng-if="item.product.name.length>20" style="margin:0px;  height:50px;">{{item.product.name.slice(0,20)}}...</h6>
+                        <h6 ng-if="item.product.name.length<=20" style="margin:0px;  height:50px;">{{item.product.name}}</h6>
+                      </div>
+                      <div class="row" style="padding:0px">
+                        <span ng-if="item.product.discount>0" style="padding-right:5px;"> <strike> <i class="fa {{currency}}"></i> {{item.product.price.toFixed(2)}} </strike> </span>
+                        <span><i class="fa {{currency}}"></i>{{item.product.discount.toFixed(2)}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-top:20px;">
+                    <div class="col-xs-4">
+                      <span>Qty :</span>
+                    </div>
+                    <div class="col-xs-4">
+                      <!-- <input type="number" ng-change="changeQty()" ng-model="item.qty" name="" value="" style="width: 40px;" min="1" > -->
+                      <select class="form-control" ng-click="$event.stopPropagation();" style="border:2px solid var(--themeColor);font-family: var(--fontStyle)!important;" ng-options="i for i in c.orderThrList" ng-model="c.qty">
+                      </select>
+                    </div>
+
+                    <div class="col-xs-4">
+                      <span>Total :</span>
+                    </div>
+                    <div class="col-xs-4">
+                      <p> <i class="fa {{currency}}"></i> {{(item.product.discount * item.qty).toFixed(2) }} </p>
+                    </div>
+                  </div>
+                </div>
+                <div ng-if="cartItems" ng-repeat="c in cartItems" style="font-family: var(--fontStyle)!important">
+                  <div class="col-xs-12 col-sm-12">
+                    <div class="row" style="padding-top:30px;">
+                      <div class="col-xs-6" style="overflow:hidden;">
+                        <img style="width: 100%;" class="img" ng-src="{{c.product.product.displayPicture}}" ng-if="c.product.product.displayPicture&&!c.prod_var">
+                        <img style="width: 100%;" class="img" ng-src="media/{{c.prod_var.prodImage}}" ng-if="c.prod_var">
+                        <img style="width: 100%;" class="img" src="/static/images/ecommerce.jpg" ng-if="c.product.files==null">
+                      </div>
+                      <div class="col-xs-6">
+                        <div class="row" style="padding:0px">
+                          <h6 ng-if="c.prod_var==undefined" style="margin:0px; height:50px;"> {{c.product.product.name}}<span ng-if="c.product.product.howMuch!=null"> {{c.product.product.howMuch | convertUnit: c.product.product.unit}}</span> </h6>
+                          <h6 ng-if="c.prod_var" style="margin:0px;  height:50px;">{{c.product.product.name}}
+                            <span ng-if="c.product.product.howMuch!=null">
+                              <span ng-if="c.product.product.unit!='Size and Color'&&c.product.product.unit!='Size'"> <span ng-if="c.prod_var.unit!='Quantity'||c.prod_var.unitPerpack!=1">
+                                  {{c.prod_var.unitPerpack | convertUnit: c.product.product.unit}}</span></span>
+                              <span ng-if="c.product.product.unit=='Size and Color'||c.product.product.unit=='Size'"> {{c.prod_var.unitPerpack }} - {{c.desc}}</span>
+                            </span></h6>
+                          <!-- <h6 ng-if="c.product.product.name.length>30" style="margin:0px;  height:50px;">{{c.product.product.name.slice(0,30)}}...</h6>
+                        <h6 ng-if="c.product.product.name.length<=30" style="margin:0px;  height:50px;">{{c.product.product.name}}</h6> -->
+                        </div>
+                        <div ng-if="c.prodSku==c.product.product.serialNo" class="row" style="padding:0px">
+                          <span ng-if="c.product.product.discount != c.product.product.price" style="padding-right:5px;"> <strike> <i class="fa {{currency}}"></i> {{c.product.product.price.toFixed(2)}} </strike> </span>
+                          <span><i class="fa {{currency}}"></i>{{c.product.product.discount.toFixed(2)}}</span>
+                        </div>
+                        <div ng-if="c.prodSku!=c.product.product.serialNo" class="row" style="padding:0px">
+                          <span ng-if="c.prodVarPrice != c.prod_var.discount"> <strike> <i class="fa {{currency}}"></i> {{c.prodVarPrice.toFixed(2)}} </strike> </span>
+                          <span><i class="fa {{currency}}"></i>{{c.prod_var.discount.toFixed(2)}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row" style="padding-top:20px;">
+                      <div class="row">
+                        <div class="col-xs-3" ng-if="c.stock>0">
+                          <span>Qty :</span>
+                        </div>
+                        <div class="col-xs-2" ng-if="c.stock>0" style="padding:0px">
+                          <select class="form-control" ng-click="$event.stopPropagation();" style="border:2px solid var(--themeColor);font-family: var(--fontStyle)!important;" ng-options="i for i in c.orderThrList" ng-model="c.qty" ng-change="calcTotal()">
+                          </select>
+                        </div>
+
+                        <div ng-if="!isStoreGlobal" class="col-xs-3">
+                          <span>GST :</span>
+                        </div>
+                        <div ng-if="!isStoreGlobal&&!c.prodVarPrice" class="col-xs-4" style="padding:0px">
+                          <!-- <span><i class="fa {{currency}}"></i> {{(c.gst * c.product.product.discount/100 * c.qty).toFixed(2)}}</span> -->
+                          <span> {{c.gst}} %</span>
+                        </div>
+                        <div ng-if="!isStoreGlobal&&c.prodVarPrice" class="col-xs-4" style="padding:0px">
+                          <span> {{c.gst}} %</span>
+                          <!-- <span><i class="fa {{currency}}"></i> {{((c.gst *  c.prod_var.discount  * c.qty)/100).toFixed(2)}}</span> -->
+                        </div>
+                      </div>
+
+
+
+                      <!-- <div ng-if="!isStoreGlobal" class="col-md-1" style="padding-top: 50px;">
+                      <span><i class="fa {{currency}}"></i>{{(c.gst * c.product.product.price )/100}}</span>
+                    </div>
+                    <div class="{{isStoreGlobal==true?'col-md-2':'col-md-1'}}" style="padding-top: 50px;padding-left:40px;">
+                      <p ng-if="c.prodSku==c.product.product.serialNo"> <i class="fa {{currency}}"></i> {{((c.product.product.discountedPrice * c.qty) + (c.gst * c.product.product.price/100)).toFixed(2) }} </p>
+                      <p ng-if="c.prodSku!=c.product.product.serialNo"> <i class="fa {{currency}}"></i> {{((c.prodVarPrice * c.qty) + (c.gst * c.product.product.price/100)).toFixed(2) }} </p>
+                    </div> -->
+
+                      <div class="row" style="padding-top:15px;">
+                        <div class="col-xs-12" ng-if="c.stock<=0||!c.stock">
+                          <span style="color:#ef4a1e">Out Of Stock</span>
+                          <!-- <button class="btn btn-primary" ng-click="addWishList($index,c.pk)">Add to Wishlist <i class="fa fa-heart"></i></button> -->
+                        </div>
+                        <div class="col-xs-4">
+                          <p>Total :</p>
+                        </div>
+                        <div class="col-xs-5">
+                          <!-- <p ng-if="c.prodSku==c.product.product.serialNo"> <i class="fa {{currency}}"></i> {{((c.product.product.discount * c.qty) +  (c.gst * c.product.product.discount/100 * c.qty)).toFixed(2)}} </p>
+                        <p ng-if="c.prodSku!=c.product.product.serialNo"> <i class="fa {{currency}}"></i> {{((c.prod_var.discount * c.qty) + (c.gst * c.prod_var.discount/100  * c.qty)).toFixed(2) }} </p> -->
+                          <p ng-if="c.prodSku==c.product.product.serialNo"> <i class="fa {{currency}}"></i> {{(c.product.product.discount * c.qty).toFixed(2)}} </p>
+                          <p ng-if="c.prodSku!=c.product.product.serialNo"> <i class="fa {{currency}}"></i> {{(c.prod_var.discount * c.qty).toFixed(2) }} </p>
+                        </div>
+                      </div>
+                      <div class="row" style="padding-top:15px;">
+                        <div class="col-xs-6">
+                          <i class="fa fa-heart fa-2x" ng-click="addWishList($index,c.pk)"></i>
+                        </div>
+                        <div class="col-xs-6">
+                          <i class="fa fa-trash fa-2x" ng-click="deleteFromCart($index,c.pk)"></i>
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+
+            <hr class="visible-xs">
+
+            <div class="row" style="margin-top:30px;padding:10px;" ng-if="item || cartItems.length>0&&isPromocode">
+              <div class="col-md-4">
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="data.promoCode" placeholder="Apply Promo Code..." />
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" ng-click="applyPromo()">Apply</button>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <span style="color: {{msg=='Success'?'green':'red'}};"> {{msg}}</span>
+                <!-- <span  ng-if="promo=='notApplied'" style="color: red;" > This Promocode is invalid! </span> -->
+              </div>
+            </div>
+
+            <div class="row hidden-sm hidden-xs" style="margin-top:30px;padding:10px;">
+              <div class="col-md-6">
+                <div class="row">
+                  <!-- <span style="font-size:20px;">Total </span> -->
+                  <br>
+                </div>
+              </div>
+              <div class="col-md-6">
+              </div>
+            </div>
+            <div class="row hidden-md hidden-lg" style="margin-top:30px;padding:10px;">
+              <div class="col-xs-6">
+                <div class="row">
+                  <span style="font-size:14px;">Total </span>
+                  <br>
+                  <i class="fa {{currency}}"></i> <span ng-if="total!=totalAfterDiscount" style="font-size:14px;"> <strike> {{total.toFixed(2)}} </strike> </span>
+                  <span style="font-size:14px;"> {{totalAfterDiscount.toFixed(2)}} </span><span class="text-muted" ng-if="!isStoreGlobal">(GST Included)</span>
+                </div>
+              </div>
+              <div class="col-xs-6">
+              </div>
+            </div>
+            <div class="row" ng-if="msg=='Success'" style="padding:15px;">
+              <span style="font-size:20px;"> Total Payable <br>
+                <i class="fa {{currency}}"></i> {{totalAfterPromo.toFixed(2)}}</span>
+              <span style="font-size:18px; padding-left:10px; " class="text-muted">(after {{promoDiscount}} % discount )</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-3" style="padding:40px">
+        <div ng-include="'/static/ngTemplates/app.ecommerce.sideBox.html'"></div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid" style="margin-top:20px;height:100vh;padding:0px;font-family: var(--fontStyle)!important;{{topLevelMenu?'margin-top:5vh':''}}" ng-if="cartData.length==0">
+  <div class="row text-center" style="padding-top:35px">
+    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+      <img src="static/images/empty-cart.jpg" alt="" class="imageemptcart">
+      <br />
+      <a style="border:1px solid var(--themeColor);padding:15px;cursor:pointer;color:var(--themeColor);font-family: var(--fontStyle)!important" href="/"> CONTINUE SHOPPING </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+
+<div class="modal-header text-center">
+  <h3>Upload Customization</h3>
+</div>
+<div class="modal-body" id="modal-body">
+  <div style="margin-top:10px;margin-bottom:10px;">
+    <div class="col-md-12 no-padding">
+      <div class="col-md-12" style="margin-bottom:15px">
+        <textarea name="textarea" id="textarea" class="form-control" rows="2" cols="40" ng-model="customData.customDetails" placeholder="Type Instructions" style="resize: none;background-color:white;"></textarea>
+      </div>
+      <div class="col-md-6">
+        <p>Upload File</p>
+        <input type="file" name="" value="" file-model="customData.customFile">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+      <button type="button" class="btn btn-info" name="button" ng-click="uploadcustomization()" >Upload</button>
+</div>

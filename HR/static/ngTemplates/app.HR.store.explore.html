@@ -1,0 +1,41 @@
+
+<div class="" ng-controller="sudo.managestores.store.form.explore">
+
+
+  <div class="row" style="margin:0px;margin-top:40px">
+    <h3>Logo</h3>
+    <img src="{{totalData.logo}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.logoinverted">
+    <h3>Logo(Inverted)</h3>
+    <img src="{{totalData.logoinverted}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.gstincert">
+    <h3>GSTIN</h3>
+    <img src="{{totalData.gstincert}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.personelid">
+    <h3>Personnel ID</h3>
+    <img src="{{totalData.personelid}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.cartImage">
+    <h3>Cart Image</h3>
+    <img src="{{totalData.cartImage}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.paymentImage">
+    <h3>Payment Image</h3>
+    <img src="{{totalData.paymentImage}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.paymentPotraitImage">
+    <h3>Payment Potrait Image</h3>
+    <img src="{{totalData.paymentPotraitImage}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.searchBackgroundImg">
+    <h3>Search Background Image</h3>
+    <img src="{{totalData.searchBackgroundImg}}" alt="" style="height:150px">
+  </div>
+  <div class="row" style="margin:0px;margin-top:40px" ng-if="totalData.blogBackgroundImg">
+    <h3>Blog Background Image</h3>
+    <img src="{{totalData.blogBackgroundImg}}" alt="" style="height:150px">
+  </div>
+</div>

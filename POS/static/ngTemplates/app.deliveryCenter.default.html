@@ -1,0 +1,307 @@
+<style media="screen">
+  body {
+    background: white !important;
+  }
+
+  .ordertabs {
+    padding: 10px;
+    background-color: #f0f0f0;
+    font-size: 13px;
+  }
+
+  .ordertabs:active {
+    padding: 10px;
+    background-color: white !important;
+    font-size: 13px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    content: " ";
+    display: table;
+  }
+
+  .clearfix:after {
+    clear: both;
+  }
+
+  body {
+    font-family: sans-serif;
+    background: #f6f9fa;
+  }
+
+  .tab_container {
+    padding-top: 20px;
+  }
+
+  .mainInputTabs,
+  section {
+    clear: both;
+    padding-top: 10px;
+    display: none;
+  }
+
+  @media only screen and (max-width: 900px) {
+    label span {
+      display: none;
+    }
+
+    .tab_container {
+      width: 98%;
+    }
+  }
+
+  .no_wrap {
+    text-align: center;
+    color: #0ce;
+  }
+
+  .link {
+    text-align: center;
+  }
+
+  .blueDot {
+    margin-left: 4px;
+    border-radius: 33%;
+    background: #80808033;
+    padding: 1px 5px;
+    color: white;
+  }
+
+
+  .footerIcons {
+    padding: 13px;
+    background: #39384B;
+    border-radius: 30%/56%;
+    margin-right: 15px;
+    cursor: pointer;
+  }
+
+  .lastIcon {
+    background-color: red;
+  }
+
+
+  .widgetBox {
+    padding: 0px 0px;
+    height: 80px
+  }
+
+  .tabSearch {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 10px;
+    border-bottom: 1px solid gray;
+  }
+
+  .closeIcon {
+    padding: 9px 12px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: #1D18CD;
+    color: white;
+    font-size: 20px;
+  }
+
+  .closeIcon {
+    transform: rotate(45deg);
+    cursor: pointer;
+  }
+
+  .closeIcon:hover {
+    transition: all 0.1s;
+    transform: rotate(88deg);
+    background-color: red;
+  }
+
+  .closeIcon:hover>.box i {
+    opacity: 1;
+  }
+
+  .box {
+    position: relative;
+  }
+
+  .item-item1,
+  .item-item2,
+  .item-item3,
+  .item-item4 {
+    position: absolute;
+    left: 7px;
+    font-size: 26px;
+    color: #7d42e5ed;
+  }
+
+  .item-item1 {
+    top: -83px;
+
+  }
+
+  .item-item2 {
+    top: -119px;
+  }
+
+  .item-item3 {
+    top: -156px;
+  }
+
+  .item-item4 {
+    top: -192px;
+  }
+
+  .highlightInput::after {
+    border-bottom: 1px solid blue;
+  }
+
+  .item-item1:hover,
+  .item-item2:hover,
+  .item-item3:hover,
+  .item-item4 :hover {
+    color: #007cff;
+    transform: scale(1.4);
+  }
+
+  .awsome_input_border {
+    display: inline-block;
+    width: 0px;
+    height: 2px;
+    background: #ccc;
+    position: relative;
+    top: -5px;
+    -webkit-transition: all ease-in-out .3s;
+    -o-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+  }
+
+  .awsome_input:hover,
+  .awsome_input:active,
+  .awsome_input:focus {
+    outline: none;
+  }
+
+  .awsome_input:active+.awsome_input_border,
+  .awsome_input:focus+.awsome_input_border {
+    width: 100%;
+
+  }
+
+  .highlightInput:focus {
+    border-bottom: 2px solid red !important;
+  }
+
+  .pagination {
+    position: fixed;
+    bottom: 6rem;
+    left: 104px;
+  }
+
+  .fab-wrapper {
+    position: fixed;
+    bottom: 11rem;
+    right: 0rem;
+    width: 100px;
+  }
+  .tab {
+    overflow: hidden;
+    display: flex;
+    /* border: 1px solid #ccc; */
+    /* background-color: #f0f0f0; */
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: #f0f0f0;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    /* background-color: #ddd; */
+  }
+
+  .tablinks {
+    color: black !important;
+    padding:0px;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: white;
+    color: #1D18CD !important;
+  }
+
+  button.active .highlight {
+    background: #1D18CD;
+    color: white
+  }
+
+  .highlight {
+    color: white;
+    padding: 5px;
+    background-color: #80808033;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: inherit !important
+  }
+
+  .tabcontent {
+    display: none;
+    /* padding: 6px 12px; */
+    /* border: 1px solid #ccc; */
+    border-top: none;
+  }
+</style>
+
+<div class="row" style="margin:0px;">
+  <div class="tab" style="margin:0px;">
+    <button class="tablinks {{$state.is('businessManagement.orders.recent')? 'active':''}}" id="defaultOpen" ng-click="$state.go('businessManagement.orders.recent')" style="width:10%;">
+      <i class="fa fa-bars" style="padding-right:5px;"> </i>
+      <span style="color:black;padding-right:10px">New Orders</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+    <button class="tablinks {{$state.is('businessManagement.orders.quotations')? 'active':''}}" ng-click="$state.go('businessManagement.orders.quotations')" style="width:10%;">
+      <i class="fa fa-toggle-on" style="padding-right:5px;"></i>
+      <span style="color:black;padding-right:10px">Quotations</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+
+    <button class="tablinks {{$state.is('businessManagement.orders.wip')? 'active':''}}" ng-click="$state.go('businessManagement.orders.wip')" style="width:14%;">
+      <i class="fa fa-bar-chart-o" style="padding-right:5px;"></i>
+      <span style="color:black;padding-right:10px">Work In Progress</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+
+    <button class="tablinks {{$state.is('businessManagement.orders.shipped')? 'active':''}}" ng-click="$state.go('businessManagement.orders.shipped')" style="width:8%;">
+      <span><i class="fa fa-truck" style="padding-right:5px;"></i></span>
+      <span style="color:black;padding-right:10px">Shipped</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+    <button class="tablinks {{$state.is('businessManagement.orders.history')? 'active':''}}" ng-click="$state.go('businessManagement.orders.history')" style="width:8%;">
+      <span><i class="fa fa-history" style="padding-right:5px;"></i></span>
+      <span style="color:black;padding-right:10px">History</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+    <div class="input-group " style="width: 30%;background:#f0f0f0;padding:5px;">
+      <input type="text" class="form-control" placeholder="Search" name="search" style="height:100%;border-radius:25px;">
+      <span><i class="fa fa-search" style="position: absolute;top: 25%;right: 4%;z-index: 999999;font-size:20px;color:#eee;"></i></span>
+    </div>
+    <button class="tablinks {{$state.is('businessManagement.orders.createOrder')? 'active':''}}" ng-click="$state.go('businessManagement.orders.createOrder')" style="width:10%">
+      <span><i class="fa fa-plus" style="padding-right:5px;"></i></span>
+      <span style="color:black;padding-right:10px">Create Order</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+    <button class="tablinks {{$state.is('businessManagement.orders.createQuotation')? 'active':''}}" ng-click="$state.go('businessManagement.orders.createQuotation')" style="width:10%">
+      <span><i class="fa fa-plus-square-o" style="padding-right:5px;"></i></span>
+      <span style="color:black;padding-right:10px">Create Quote</span>
+      <span class="badge highlight">{{data.orders.length}}</span>
+    </button>
+  </div>
+</div>
+
+<ui-view></ui-view>

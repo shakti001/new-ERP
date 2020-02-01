@@ -1,0 +1,100 @@
+<div class="row" style="background-color:#f8f8f8;min-height:90vh;">
+
+  <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 col-sm-12 col-xs-12" style="background-color:white;">
+
+
+    <div class="  col-md-12" style="background-color:white;border-radius:10px;margin-top:50px;margin-bottom:50px;">
+      <div class="row" style="height:10vh;margin:0px;">
+        <div class="col-md-5 text-center">
+          <h3 style="color:#ee5634"> Thank You!</h3>
+        </div>
+        <button type="button" class="btn btn-primary pull-right" style="border-radius:100px;">
+          Download Invoice
+        </button>
+      </div>
+
+      <div class="row" >
+        <!-- DAF0FE -->
+        <div class="col-md-5" style="margin-top:0px;">
+          <img src="static/images/goals-spot-icons_2x.jpg" alt="" width="100%" >
+          <div class="row col-md-12  text-center">
+
+            <!-- <ul style="list-style:none;">
+              <li style="display:inline-block;padding-right:10px;"><a href="/"><img src="static/images/facebook.svg" alt="" style="width:3vh;"></a></li>
+              <li style="display:inline-block;padding-right:10px;"><a href="/"><img src="static/images/twitter.svg" alt="" style="width:3vh;"></a></li>
+              <li style="display:inline-block;padding-right:10px;"><a href="/"><img src="static/images/google-plus.svg" alt="" style="width:3vh;"></a></li>
+            </ul> -->
+          </div>
+        </div>
+
+        <div class="col-md-7 " style="line-height:11px;float:right;margin-top:0px;height:">
+          <div class="text-center">
+            <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12" style="font-size:25px;padding: 5% 0;"> Your Order Details</div>
+          </div>
+          <hr>
+          <div style="margin-top:30px;">
+            <p><strong>Your order # is:{{order.pk}}</strong></p>
+          </div>
+          <div style="margin-top:30px;margin-bottom:30px;">
+            <p><strong>SHIPPING ADDRESS</strong></p>
+            <p>{{order.street}}</p>
+            <p>{{order.landMark}}</p>
+            <p>{{order.city}}</p>
+            <p>{{order.state}}</p>
+            <p>{{order.pincode}}</p>
+            <p>{{order.country}}</p>
+            <p>{{order.mobileNo}}</p>
+          </div>
+          <div class="table-responsive">
+
+            <table class="table w-auto">
+              <thead>
+                <tr>
+                  <th class="col-md-6 col-lg-6 col-sm-6 col-xs-12" style="border-bottom:none;">ORDER SUMMARY</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="i in orderq">
+                  <td class="col-md-2"><strong>{{i.product.product.name}}</strong>
+                    <td class="col-md-1 text-center">Quantity:{{i.qty}}</td>
+                    <td class="col-md-2 text-center" ng-if="!isStoreGlobal">{{i.gstAmount}}</td>
+                    <td class="text-right" style='font-size:20px;'> <i class="fa fa-inr"></i> {{i.totalAmount}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 pull-right " style="border:1px solid #b3b3b3;line-height:22px;">
+              <table class="pull-right text-right">
+                <tbody>
+                  <tr>
+                    <td style="padding-right:20px">Subtotal: </td>
+                    <td><span style='font-size:12px;'>&#8377;</span>{{order.total}} </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right:20px">Shipping & Handling: </td>
+                    <td><span style='font-size:12px;'>&#8377;</span>{{order.shippingPrice}} </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right:20px">Tax: </td>
+                    <td><span style='font-size:12px;'>&#8377;</span>0 </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right:20px">Discount: </td>
+                    <td><span style='font-size:12px;'>&#8377;</span>{{order.discount}} </td>
+                  </tr>
+                  <tr>
+                    <td style="padding-right:20px"><strong>Grand Total:</strong> </td>
+                    <td style="font-size:20px;"><i class="fa fa-inr"></i> {{order.totalAmount}} </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="col-md-12 text-right">
+            <a href="/" class="btn btn-success" role="button" style="margin:15px auto;padding:10px;">Continue Shopping</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+
+<div class="col-md-6" ng-init="more = false;" ng-controller="admin.manageUsers.userform">
+  <h3>Create New User</h3>
+  <div class="form-group" >
+    <label>Username</label>
+    <input type="text" class="form-control" ng-model="data.username" required  placeholder="username">
+  </div>
+  <div class="form-group">
+    <label>First Name</label>
+    <input type="text" class="form-control" ng-model="data.first_name" required placeholder="First Name">
+  </div>
+  <div class="form-group">
+    <label>Last Name</label>
+    <input type="text" class="form-control" ng-model="data.last_name" required placeholder="Last Name">
+  </div>
+  <div class="form-group">
+    <label >Password</label>
+    <input type="password" class="form-control" ng-model="data.password" required placeholder="Password">
+  </div>
+
+  <div class="form-group">
+    <label >Mobile Number</label>
+    <input type="text" class="form-control" ng-model="data.mobile" required placeholder="Mobile number">
+  </div>
+
+  <span ng-click="more = !more;" style="margin-bottom:30px;cursor:pointer;">Show more</span>
+
+  <div ng-if="more" >
+    <div class="form-group">
+      <label >GSTIN</label>
+      <input type="text" class="form-control" ng-model="data.gstin" required placeholder="GSTIN">
+    </div>
+    <div class="form-group">
+      <label >Company Name</label>
+      <input type="text" class="form-control" ng-model="data.companyName" required placeholder="Company Name">
+    </div>
+  </div>
+
+  <br>
+
+  <button ng-click="createUser()" type="button" class="btn btn-default" style="margin-top:30px;">
+    Save
+  </button>
+
+</div>

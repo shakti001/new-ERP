@@ -1,0 +1,461 @@
+<style media="screen">
+  .maincon:hover {
+    /* background-image: linear-gradient(120deg, #D3CCE3, #E9E4F0) !important; */
+    cursor: pointer;
+    opacity: 1;
+    /* box-shadow: 4px 3px 2px 1px grey; */
+
+  }
+  .leg{
+    color:red;
+  }
+  .leg1{
+    color:#E3E3E3;
+  }
+  .leg2{
+    color:#ABC8D7;
+  }
+  .leg3{
+    color:#6BCBCA;
+  }
+  .leg4{
+    color:#ABC8D7;
+  }
+</style>
+
+<div class=" bg-white" style="min-height:93vh;padding:20px; " "padding-top:10px;">
+  <div class="container-fluid">
+    <div class="row" style="padding-bottom:20px">
+      <div class="col-md-6">
+        <span style="font-size:30px;"> Hi, Admin</span>
+      </div>
+      <div class="col-md-6 text-right" style="display:flex; justify-content:flex-end;  color:grey; ">
+        <div class="btn-group ">
+          <button type="button"  class="btn btn-primary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width:165px;border-radius:50px !important;">7 Days
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" style="margin-left: -61px;">
+            <li ng-click="refresh_data('7days') " ><a href="#">7 Days</a></li>
+            <li role="separator" class="divider"></li>
+
+            <li ng-click="refresh_data('15days') "><a href="#">15 Days</a></li>
+            <li role="separator" class="divider"></li>
+
+            <li ng-click=" refresh_data('1month')"><a href="#">1 Month</a></li>
+            <li role="separator" class="divider"></li>
+            <li ng-click="refresh_data('3months')"><a href="#">3 Month</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="row">
+      <div class="col-md-3 ">
+
+        <div class="container-fluid maincon" style="height:100px;  padding-top:40px; border:solid 2px #eee;height:180px; background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);color:white;" ng-init="h1 = false;" ng-mouseenter="h1=true;" ng-mouseleave="h1=false;">
+          <div class="col-md-4">
+            <div style="  border-radius:50%; padding:10px; height:60px; width:60px;  background:#f5ad42">
+              <i style="font-size:30px; padding-left :5px; padding-top:5px;" class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+
+            </div>
+
+            <div class="" style="padding-top:20px; ">
+          <span style="font-size:20px; ">{{dashboarddata[0].name}}</span>
+
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class=" downloadBtn" style="font-size:50px; padding-left:10px; padding-top:15px; opacity: 1; ">
+              <i  ng-if="h1" class="fa fa-arrow-circle-o-down maincol" aria-hidden="true"></i>
+
+
+            </div>
+          </div>
+          <div class="col-md-5 text-right">
+            <div class="" style="font-size:40px; ">
+              <span>{{dashboarddata[0].price}}</span>
+
+            </div>
+            <div class="" style="font-size:15px; ">
+              <span>{{dashboarddata[0].model}}</span>
+
+            </div>
+            <div class="" style="font-size:20px;">
+              <span>{{dashboarddata[0].rs}}</span>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="col-md-3">
+
+        <div class="container-fluid maincon" style="height:100px;   border:solid 2px #eee; height:180px; background-image: linear-gradient(to right, #07EBFE 0%,#4CAEFE 100%);padding-top:50px; color:white;" ng-init="h2 = false;" ng-mouseenter="h2=true;" ng-mouseleave="h2=false;">
+          <div class="col-md-4">
+            <div style="  border-radius:50%; padding:10px; height:60px; width:60px;  background:#42a1f5">
+              <i style="font-size:30px; padding-left :10px; padding-top:5px;" class="fa fa-user" aria-hidden="true"></i>
+
+            </div>
+            <div class="" style="padding-top:20px;">
+              <span style="font-size:20px; ">{{dashboarddata[1].name}}</span>
+
+            </div>
+          </div>
+          <div class="col-md-2 " style="padding-top:11px;">
+            <div style="font-size:50px; padding-left :10px; opacity: 1;">
+              <i style="" class="fa fa-arrow-circle-o-down maincol" aria-hidden="true" ng-if="h2"></i>
+
+            </div>
+
+
+          </div>
+          <div class="col-md-5 text-right">
+            <div class="" style="font-size:40px; ">
+              <span>{{dashboarddata[1].price}}</span>
+
+            </div>
+            <div class="" style="font-size:15px;">
+              <span>{{dashboarddata[1].model}}</span>
+
+            </div>
+            <div class="" style="font-size:20px; ">
+              <span>{{dashboarddata[1].rs}}</span>
+
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+      <div class="col-md-3">
+
+        <div class="container-fluid maincon" ng-init="h3 = false;" ng-mouseenter="h3=true;" ng-mouseleave="h3=false;" style="height:100px;   border:solid 2px #eee; height:180px; background-image: linear-gradient(to right, #38F9D6 0%, #43EA7F 100%);padding-top:50px;color:white;">
+          <div class="col-md-4">
+            <div style="  border-radius:50%; padding:10px; height:60px; width:60px;  background:#3DF1AA">
+              <i style="font-size:30px; padding-left :5px; padding-top:5px;" class="fa fa-line-chart" aria-hidden="true"></i>
+
+            </div>
+
+            <div class="" style="padding-top:20px;">
+              <span style="font-size:20px; ">{{dashboarddata[2].name}}</span>
+
+            </div>
+          </div>
+          <div class="col-md-2" style="padding-top:3px;">
+            <div style="font-size:50px; padding-left :10px; opacity: 1;">
+              <i style="" class="fa fa-arrow-circle-o-down maincol " ng-if="h3" aria-hidden="true"></i>
+
+            </div>
+
+          </div>
+          <div class="col-md-5 text-right">
+            <div class="" style="font-size:40px; ">
+                <span>{{dashboarddata[2].price}}</span>
+
+            </div>
+            <div class="" style="font-size:15px; ">
+              <span>{{dashboarddata[2].model}}</span>
+
+            </div>
+            <div class="" style="font-size:20px; ">
+              <span>{{dashboarddata[2].rs}}</span>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+
+
+        <div class="container-fluid maincon" ng-init="h4 = false;" ng-mouseenter="h4=true;" ng-mouseleave="h4=false;" style="height:100px; border:solid 2px #eee; height:180px; background-image: linear-gradient(to right, #FFAA95 0%, #FF0E47 100%); padding-top:50px;color:white;">
+          <div class="col-md-4">
+            <div style="  border-radius:50%; padding:10px; height:60px; width:60px;  background:#FF978C">
+              <i style="font-size:30px; padding-left :10px; padding-top:5px;" class="fa fa-usd" aria-hidden="true"></i>
+
+            </div>
+
+
+            <div class="" style="padding-top:20px; ">
+              <span style="font-size:20px; ">{{dashboarddata[3].name}}</span>
+
+            </div>
+          </div>
+          <div class="col-md-2 " style="padding-top:3px">
+            <div style="font-size:50px; padding-left :8px; opacity: 1;">
+              <i style="" class="fa fa-arrow-circle-o-down maincol" ng-if="h4" aria-hidden="true"></i>
+            </div>
+          </div>
+
+          <div class="col-md-5 text-right">
+            <div class="" style="font-size:40px;">
+              <span>{{dashboarddata[3].price}}</span>
+            </div>
+            <div class="" style=" font-size:15px; ">
+              <span>{{dashboarddata[3].model}}</span>
+
+            </div>
+            <div class="" style="font-size:20px;">
+              <span>{{dashboarddata[3].rs}}</span>
+
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+    <div class="row" style="padding-top:10px;">
+      <div class="col-md-6" style="padding-top:60px;">
+        <canvas id="line" class="chart chart-line" chart-colours="ctrl.colors" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick">
+  </canvas>
+<div class="" style=" display:flex; justify-content:center;">
+  <div class="" style="padding:20px;" >
+    <span class="fa fa-square leg"> </span>
+    <span style="">COD</span>
+  </div>
+  <div class=""  style="padding:20px;">
+
+      <span class="fa fa-square leg1"> </span>
+      <span style="">Total Sales</span>
+  </div>
+<div class=""style="padding:20px;">
+  <span class="fa fa-square leg2"> </span>
+  <span style="">Online Payment</span>
+</div>
+
+</div>
+</div>
+
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4" style="padding-top:50px;">
+            <canvas id="doughnut" width="-10px" height="-10px;" class="chart chart-doughnut" chart-data="datadoughnut" chart-labels="labelsdoughnut" chart-options="options" >
+          </canvas>
+          </div>
+          <div class="col-md-2" style="padding-top:50px;" chart-legend="true">
+             <span class="fa fa-square leg"> </span>
+             <span style="padding-left:10px">Android</span>
+             <br><br>
+             <span class="fa fa-square leg1"> </span>
+             <span style="padding-left:10px">Web</span>
+             <br><br>
+
+             <span class="fa fa-square leg2"> </span>
+             <span style="padding-left:10px">iOS</span>
+             <br><br>
+             <span class="fa fa-square leg3"> </span>
+             <span style="padding-left:10px">COD</span>
+             <br><br>
+
+
+
+
+
+          </div>
+          <div class="col-md-4" style="padding-top:50px;">
+            <canvas id="doughnut" width="-10px" height="-10px;" class="chart chart-pie" chart-data="piedata" chart-labels="pielebels" chart-options="options">
+          </canvas>
+
+          </div>
+          <div class="col-md-2" style="padding-top:50px;" chart-legend="true"></div>
+          <span class="fa fa-square leg4"> </span>
+          <span style="padding-left:10px">COD</span>
+          <br><br>
+          <span class="fa fa-square leg1"> </span>
+          <span style="padding-left:10px">online</span>
+          <br><br>
+
+
+
+
+        </div>
+        <div class="row">
+          <div class="col-md-12" style="padding-left:100px; padding-top:30px;">
+            <table class="table">
+
+              <tr>
+              <th>{{table[0].name}}</th>
+                <th>{{table[0].Orders}}</th>
+                <th>{{table[0].Amount}}</th>
+              </tr>
+              <tr>
+                <td>{{table[1].name}}</td>
+                <td>{{table[1].Orders}}</td>
+                <td>{{table[1].Amount}}</td>
+
+
+
+              </tr>
+              <tr>
+                <td>{{table[2].name}}</td>
+                <td>{{table[2].Orders}}</td>
+                <td>{{table[2].Amount}}</td>
+
+
+              </tr>
+              <tr>
+                <td>{{table[3].name}}</td>
+                <td>{{table[3].Orders}}</td>
+                <td>{{table[3].Amount}}</td>
+
+              </tr>
+              <tr>
+                <td>{{table[4].name}}</td>
+                <td>{{table[4].Orders}}</td>
+                <td>{{table[4].Amount}}</td>
+
+              </tr>
+              <tr>
+                <td>{{table[5].name}}</td>
+                <td>{{table[5].Orders}}</td>
+                <td>{{table[5].Amount}}</td>
+
+              </tr>
+              <tr>
+                <td>{{table[6].name}}</td>
+                <td>{{table[6].Orders}}</td>
+                <td>{{table[6].Amount}}</td>
+
+              </tr>
+
+
+
+            </table>
+
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+
+      </div>
+      <!-- <div class="col-md-3" style="padding-top:60px;">
+      <canvas id="doughnut" class="chart chart-doughnut"
+        chart-data="datadoughnut" chart-labels="labelsdoughnut">
+      </canvas>
+    <div class="row">
+      <div class="col-md-8" style="padding-left:140px; padding-top:30px;">
+        <table class="table" >
+
+  <tr>
+      <td>Xiaomi Redmi K30 (32 Gb ram)</td>
+      <td>Samsung Galaxy A51 (42gb) </td>
+
+    </tr>
+    <tr>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+          </tr>
+          <tr>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+    <tr>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+
+</table>
+
+      </div>
+
+        </div>
+
+      </div> -->
+
+    </div>
+
+    <!-- <div class="col-md-3">
+      <canvas id="pie" class="chart chart-pie" chart-data="piedata" chart-labels="pielebels" chart-options="options">
+    </canvas>
+
+
+    </div> -->
+
+
+
+
+  </div>
+
+
+
+
+
+</div>
+
+
+
+
+<!-- <div class=" bg-white" style="min-height:93vh;padding:20px; " "padding-top:10px;"> -->
+
+<!-- <div class="container-fluid">
+    <div class="row" >
+      <h1> Hi Admin,</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" style="height:100px;  padding-top:50px;">
+        <div class="container-fluid" style="border:solid 2px #eee;height:150px; background: rgb(131,48,150);
+background: linear-gradient(0deg, rgba(131,48,150,0.44439782749037116) 91%, rgba(172,127,173,1) 100%);">
+        <span  style="padding-top:15px; font-size:30px;"  class="glyphicon glyphicon-qrcode"></span> <br>
+        <br>
+        <span style="padding-top:30px; font-size:20px;">Orders</span>
+
+</div>
+</div>
+</div>
+
+
+      <div class="col-md-3" style="height:100px; padding-top:50px;">
+        <div class="container-fluid" style="border:solid 2px #eee;height:150px; S
+background: rgb(209,144,212);
+background: linear-gradient(0deg, rgba(209,144,212,0.7637255585828081) 0%, rgba(172,127,173,1) 100%); ">
+        <span  style="padding-top:15px; font-size:20px;"  class="glyphicon glyphicon-qrcode"></span>
+        </div>
+      </div>
+      <div class="col-md-3" style="height:100px; padding-top:50px;">
+        <div class="container-fluid" style="border:solid 2px #eee;height:150px;;background: rgb(190,124,21);
+        background: linear-gradient(0deg, rgba(190,124,21,1) 12%, rgba(253,200,45,1) 100%);">
+<span  style="padding-top:15px; font-size:20px;"  class="glyphicon glyphicon-qrcode"></span>
+        </div>
+      </div>
+      <div class="col-md-3" style="height:100px; padding-top:50px;">
+        <div class="container-fluid" style="border:solid 2px #eee;height:150px; background: rgb(59,215,186);
+background: linear-gradient(0deg, rgba(59,215,186,0.44439782749037116) 91%, rgba(172,127,173,1) 100%);">
+<span  style="padding-top:15px; font-size:20px;"  class="glyphicon glyphicon-qrcode"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row"> -->

@@ -1,0 +1,172 @@
+<div class="shaddowed card bg-white" style="min-height:93vh;">
+  <breadcrumb></breadcrumb>
+  <div class="container-fluid">
+    <uib-tabset>
+      <uib-tab>
+        <uib-tab-heading>
+          New <i class="fa fa-plus"></i>
+        </uib-tab-heading>
+        <div ng-include="'/static/ngTemplates/app.HR.form.newUser.html'"></div>
+      </uib-tab>
+      <uib-tab active="searchTabActive">
+        <uib-tab-heading>
+          Search <i ng-if="tab.cancel" class="fa fa-search"></i>
+        </uib-tab-heading>
+        <div class="row" style="margin-top:20px;margin-bottom:20px;">
+          <div class="col-md-6">
+
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search with username" ng-model="userform.userText" ng-change="searchUser()">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" >
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-sm btn-primary btn-block" style="padding:8px 18px" ng-click="prevUser()">Prev</button>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-sm btn-primary btn-block " style="padding:8px 18px" ng-click="Usernext()">Next</button>
+
+          </div>
+
+        </div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th ng-click="Usersorting('username')">Username</th>
+              <th ng-click="Usersorting('first_name')">Fullname</th>
+              <th ng-click="Usersorting('email')">Email</th>
+              <th>Mobile</th>
+              <th>Company Name</th>
+              <th>GSTIN</th>
+              <th>Staff</th>
+              <th>Last Login</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="k in allUsers">
+              <td>{{k.pk}}</td>
+              <td>{{k.username}}</td>
+              <td>{{k.first_name}} {{k.last_name}}</td>
+              <td>{{k.email}}</td>
+              <td>{{k.profile.mobile}}</td>
+              <td>{{k.profile.companyName}}</td>
+              <td>{{k.profile.gstin}}</td>
+              <td class="text-success">
+                <span class="fa-stack" ng-if="k.is_staff">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
+              </td>
+              <td>{{k.last_login | date}}</td>
+              <td > <span class="" style="cursor:pointer;">
+                <i class="fa fa-pencil fa-lg" style="margin-top:0px;"  ng-click="editUserDetails(k); $event.stopPropagation()"></i>
+              </span> </td>
+            </tr>
+          </tbody>
+        </table>
+      </uib-tab>
+      <uib-tab>
+        <uib-tab-heading>
+          New Store <i class="fa fa-plus"></i>
+        </uib-tab-heading>
+        <div style="margin-top:20px;" ng-include="'/static/ngTemplates/app.HR.form.store.html'">
+        </div>
+      </uib-tab>
+      <uib-tab>
+        <uib-tab-heading>
+          Stores <i ng-if="tab.cancel" class="fa fa-search"></i>
+        </uib-tab-heading>
+        <div class="row" style="margin-top:20px;margin-bottom:20px;">
+          <div class="col-lg-6">
+
+
+          </div>
+          <div class="col-md-4">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Search with Storename" ng-model="form.searchValue" ng-enter="searchStore()" >
+              <div class="input-group-btn" ng-click="searchStore()">
+                <button class="btn btn-default" type="submit" >
+                  <i class="glyphicon glyphicon-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-block" style="padding:8px 18px" ng-click="prev()">Prev</button>
+          </div>
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary btn-block" style="padding:8px 18px" ng-click="next()">Next</button>
+          </div>
+        </div>
+        <!-- <input type="text" name="" value=""> -->
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th ng-click="Storesorting('name')"  style="pointer:cursor">Store Name</th>
+              <th ng-click="Storesorting('mobile')" >Mobile</th>
+              <th ng-click="Storesorting('email')">Email</th>
+              <th ng-click="Storesorting('address')">Address</th>
+              <th ng-click="Storesorting('pincode')">Pincode</th>
+              <th ng-click="Storesorting('owner')">Owner </th>
+              <th>Master </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <p></p>
+            <tr ng-repeat="i in storeData">
+              <td>{{i.name}}</td>
+              <td>{{i.mobile}}</td>
+              <td>{{i.email}}</td>
+              <td>{{i.address}}</td>
+              <td>{{i.pincode}}</td>
+              <td>{{i.owner.first_name}} {{i.owner.last_name}}</td>
+              <td class="text-success">
+                <span class="fa-stack" ng-if="i.editMode == 'full'">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-check fa-stack-1x fa-inverse"></i>
+                </span>
+              </td>
+              <td> <span class="" style="cursor:pointer;">
+                  <i class="fa fa-pencil fa-lg" style="margin-top:0px;" ng-click="openStore(i)"></i>
+                </span> </td>
+                <!-- <span class="" style="cursor:pointer;">
+                  <i class="fa fa-info-circle fa-lg" style="margin-top:0px;" ng-click="openStoreInfo(i)"></i>
+                </span> -->
+            </tr>
+          </tbody>
+        </table>
+
+      </uib-tab>
+      <uib-tab ng-repeat="tab in tabs" active="tab.active" disable="tab.disabled">
+        <uib-tab-heading>
+          {{tab.title}} <i ng-if="tab.cancel" class="fa fa-close" ng-click="closeTab($index);"></i>
+        </uib-tab-heading>
+        <div ng-if="tab.app == 'editProfile'">
+          <div ng-include="'/static/ngTemplates/app.HR.form.newUser.html'"></div>
+        </div>
+
+        <div ng-if="tab.app == 'storeEditor'">
+          <div style="margin-top:30px;" ng-include="'/static/ngTemplates/app.HR.form.store.html'"></div>
+        </div>
+
+        <div ng-if="tab.app == 'storeInfo'">
+          <div ng-include="'/static/ngTemplates/app.HR.store.explore.html'"></div>
+        </div>
+
+        <div ng-if="tab.app == 'viewProfile'">
+          <div ng-include="'/static/ngTemplates/app.HR.manage.users.explore.html'"></div>
+        </div>
+      </uib-tab>
+    </uib-tabset>
+  </div>
+</div>

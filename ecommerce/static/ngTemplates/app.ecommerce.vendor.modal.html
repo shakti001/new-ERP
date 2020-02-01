@@ -1,0 +1,69 @@
+<style media="screen">
+  .filterForm input{
+    border:none !important;
+  }
+</style>
+
+<div class="modal-body row" ng-controller="businessManagement.ecommerce.configure.form" class="col-md-offset-2 col-md-8" style="padding-top:15px;padding-bottom:30px">
+  <div class="col-md-offset-2 col-md-6">
+    <h3 ng-if="!form.pk"> New Category </h3>
+    <h3 ng-if="form.pk"> Edit Category</h3> <br/>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label> Name</label>
+          <input ng-model="form.name" type="text" class="form-control" placeholder="Name of this product ">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label> Parent Category</label>
+          <input uib-typeahead="g as g.name for g in parentSearch($viewValue)" class="form-control" type="text" ng-model="form.parent" placeholder="Search By Generic Products Name">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 text-center" style="height:250px;margin-bottom:60px;">
+        <img-field img="form.visual"></img-field>
+        <label>Icon</label>
+      </div>
+      <div class="col-md-6 text-center" style="height:250px;">
+        <img-field img="form.mobileBanner"></img-field>
+        <label>Mobile Banner</label>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12 text-center" style="height:150px;margin-bottom:60px;">
+        <img-field img="form.bannerImage"></img-field>
+        <label>Desktop Banner</label>
+      </div>
+    </div>
+
+
+    <button class="btn btn-primary" type="button" name="button" style="margin:auto;margin-top:40px;" ng-click="submit()">Save</button>
+
+  </div>
+  <div class="col-md-3 filterForm" ng-if="form.pk">
+    <h3>Filters Applicable</h3>
+    <div class="row" ng-repeat="(f , values) in filform.filData" style="margin:0px;margin-top:20px;">
+      <label>{{f}}</label> <br>
+
+      <div class="container-fluid">
+        <span ng-repeat="v in values"> {{v.value}}<i class="fa fa-trash-o" style="margin-left:30px;margin-top:10px;"  mwl-confirm title="Change Status" message="Are you sure?" confirm-text="Yes <i class='fa fa-check'></i>" cancel-text="No" on-confirm="deletefil(v.id)" confirm-button-type="default" cancel-button-type="default"  ></i>  <br>  </span>
+        <input type="text" ng-enter="saveFilter(f , filform.newData[f])" ng-model="filform.newData[f]" class="form-control" placeholder="New Filter" style="margin-top:10px;margin-left:-10px;">
+      </div>
+
+      <hr>
+    </div>
+    <input ng-model="filform.filname" type="text" class="form-control" placeholder="New Property">
+    <input ng-model="filform.value" type="text" class="form-control" placeholder="First Filter * ( press Enter to save )" style="margin-left:20px;margin-top:20px;" ng-enter="saveFilter()">
+
+    <span style="margin-left:33px;" class="text-warning"> At least one property is required </span>
+
+  </div>
+
+</div>

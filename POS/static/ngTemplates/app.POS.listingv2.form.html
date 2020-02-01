@@ -1,0 +1,446 @@
+<style>
+  .file_upload {
+    opacity: 0.0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    -moz-opacity: 0.0;
+    -khtml-opacity: 0.0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .owl-stage {
+    display: flex;
+  }
+
+  .owl-dots {
+    display: none;
+  }
+</style>
+<div ng-controller="productController.form">
+
+
+  <div class="col-md-9">
+    <div class="row" style="margin-top:30px;">
+      <div class="col-lg-3">
+        <h3>Product</h3>
+      </div>
+      <div class="col-lg-9">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-lg-12">
+                <h3 style="margin-bottom:20px;" ng-if="product.pk">Edit {{product.name}}</h3>
+
+              </div>
+              <div class="col-lg-12">
+
+                <div class="text-right" style="margin-top:15px">
+
+                  <button ng-if="formTyp" class="btn btn-default" type="button" name="button" style="margin:auto;width:20%" ng-click="reset()">Reset</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <div class="input-group">
+                <input uib-typeahead="c as c.name for c in categorySearch($viewValue)" class="form-control" type="text" ng-model="product.category" placeholder="Search By Category Name">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" ng-click="openCategory()"><span ng-if="!product.category.pk">New </span> <span ng-if="product.category.pk">Update </span></button>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+              <label>Produt Index</label>
+              <input type="number" min="0" class="form-control" ng-model="product.productIndex">
+            </div> -->
+        </div>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" ng-model="product.name">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea class="form-control" ng-model="product.description" rows="8"></textarea>
+        </div>
+
+
+        <div style="padding:15px;">
+          <span ng-click="loadMore =! loadMore" style="cursor:pointer"><span ng-if="!loadMore"> <i class="fa fa-arrow-down"></i> Load More</span></span>
+          <span ng-click="loadMore =! loadMore" style="cursor:pointer"> <span ng-if="loadMore"> <i class="fa fa-arrow-up"></i> Less</span></span>
+        </div>
+        <div ng-if="loadMore">
+          <div class="form-group">
+            <label>Detailed Description</label>
+            <textarea ui-tinymce="tinymceOptions" ng-model="product.detailedDescription"></textarea>
+          </div>
+
+            <div class="flex-container" style="display:flex;">
+              <div class="" style="margin-right:15px;">
+                <div class="form-group">
+                  <label>COD</label>
+                  <input type="checkbox" ng-model="product.iscod">
+                </div>
+              </div>
+              <div class="" ng-if="product.iscod==true">
+                <div class="form-group">
+                <input type="number" name="" class="form-control" value="" ng-model="product.codAdvance" placeholder="COD Advance Amount">
+              </div>
+              </div>
+            </div>
+          
+
+
+
+        </div>
+        <div class=" text-center" style="margin-top:15px">
+          <button class="btn btn-primary" type="button" name="button" style="margin:auto;width:20%" ng-click="saveProduct()">Save</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="row" style="margin-top:20px;" ng-if="product.pk">
+      <div class="col-lg-3">
+        <h3>Product Variants</h3>
+      </div>
+      <div class="col-lg-9">
+
+        <div class="" ng-show="IsVisible">
+
+          <div class="row">
+            <div class="col-md-3 " style="padding-right:0px;">
+              <div class="form-group">
+              <label>{{varientType.typ}}</label>
+              <div style="display:flex">
+                <div class="" style="{{productVariant.unitType == 'Size and Color' || productVariant.unitType == 'Quantity and Color'?'width:50%':''}}">
+                  <input type="text" class="form-control" ng-model="productVariant.value">
+                </div>
+                <div class="" ng-if="varientType.typ == 'Size and Color' || varientType.typ == 'Quantity and Color'" style="width:50%;">
+                  <input type="color" class="form-control" ng-model="productVariant.value2">
+                </div>
+              </div>
+
+            </div>
+            </div>
+            <div class="col-md-3" style="padding-left:0px">
+              <div class="form-group">
+              <select class="form-control" ng-disabled="varientType.lock ? 'disabled': '' " ng-model="varientType.typ" style="margin-top :25px;">
+
+                <option value="Quantity">Quantity</option>
+                <option value="Size">Size</option>
+                <option value="Size and Color">Size and Color</option>
+                <option value="Color">Color</option>
+                <option value="Quantity and Color">Quantity and Color</option>
+                <option value="Gram">Gram</option>
+                <option value="Ton">Ton</option>
+                <option value="Kilogram">Kilogram</option>
+                <option value="Litre">Litre</option>
+                <option value="Millilitre">Millilitre</option>
+              </select>
+            </div>
+            </div>
+
+            <div class="col-md-3" style="padding-right:3px;">
+              <label>Selling Price</label>
+              <input type="number" min="0" class="form-control" ng-model="productVariant.sellingPrice">
+
+            </div>
+            <div class="col-md-3" style="padding-left:0px;">
+              <label>MRP</label>
+              <input type="number" min="0" class="form-control" ng-model="productVariant.price">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group">
+            <div class="col-md-6">
+              <label>Gst Type</label>
+              <select class="form-control" ng-model="productVariant.gstType">
+                <option value="gst_included">GST Included</option>
+                <option value="gst_extra">GST Extra</option>
+                <option value="gst_not_applicable">GST Not Applicable</option>
+              </select>
+            </div>
+            <div class="col-md-6" ng-if="productVariant.gstType != 'gst_not_applicable'">
+              <label>HSN/SAC Code</label>
+              <input uib-typeahead="meta as meta.description for meta in searchTaxCode($viewValue)" class="form-control" type="text" ng-model="productVariant.productMeta" placeholder="Search and Select the tax code"><br />
+              <p ng-if="productVariant.productMeta.pk">
+                <span style="padding-right:15px"> <strong> Code : </strong> {{productVariant.productMeta.code}} </span>
+                <span style="padding-right:15px"> <strong> TaxRate : </strong> {{productVariant.productMeta.taxRate}} </span>
+                <span> <strong> Type : </strong> {{productVariant.productMeta.typ}} </span>
+              </p>
+            </div>
+          </div>
+          </div>
+
+          <div class="row" style="margin:0px;">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 10px;">
+
+              <div class="col-md-2 col-sm-4 col-xs-6 text-center" ng-repeat="f in productVariant.images" style="padding-right:0px;padding-left:10px">
+                <div ng-if="f.mediaType=='image'" style="background-color: #f1f2f7ff;background-image:url('{{f.attachment}}');border-radius:15px;background-size:cover;height:75px;padding-right:0px;padding-left:0px;position:relative;">
+                  <div class="pull-right bg-red" style="padding:5px;border-radius:10px;position:absolute;top:-10px;">
+                    <i class="fa fa-close fa-lg " ng-click="removeImage($index)"></i>
+                  </div>
+                </div>
+                <!-- <div ng-if="f.mediaType=='video'" style="background-color: #f1f2f7ff;background-image:url('/static/images/utub.png');border-radius:25px;background-size:cover;height:75px;margin-top:15px;padding-right:0px;padding-left:0px">
+                    <i class="fa fa-close fa-lg pull-right" ng-click="removeImage($index)"></i>
+                  </div> -->
+                <div ng-if="f.mediaType!='image'" style="border-radius:25px;background-size:cover;height:75px;padding-right:0px;padding-left:0px;padding-top:10px;position:relative;" class="text-center">
+                  <div class="pull-right" style="padding:5px;border-radius:10px;position:absolute;top:-10px;">
+                    <i class="fa fa-close fa-lg " ng-click="removeImage($index)"></i>
+                  </div>
+                  <!-- <img src="{{f.attachment}}" alt="" class="shaddowed"style="height:100px;width:150px" > -->
+                  <a href="{{f.attachment}}" target="_blank">
+                    <i class="fa {{f.attachment|fileTypeIcon}} fa-4x" style="text-align:center"></i>
+                  </a>
+                  <!-- <p>{{fileTypeIcon}}</p> -->
+                </div>
+
+              </div>
+              <div class="col-md-2 col-sm-4 col-xs-6 text-center" style="padding-right:0px;padding-left:10px">
+                <div style="background:#f1f2f7ff;border-radius:15px;padding-top:25px;padding-bottom:20px;height:75px">
+                  <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+                  <input type="file" class="file_upload" ng-model="productVariant.image" onchange="angular.element(this).scope().fileNameChanged(this.files)" multiple />
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div style="padding:15px;">
+            <div class="">
+              <span ng-click="varientForm.showMore =! varientForm.showMore" style="cursor:pointer">
+                <span ng-if="!varientForm.showMore"> <i class="fa fa-arrow-down"></i> Load More</span>
+
+              </span>
+              <span ng-click="varientForm.showMore =! varientForm.showMore" style="cursor:pointer">
+                <span ng-if="varientForm.showMore"> <i class="fa fa-arrow-up"></i> Less</span>
+
+              </span>
+
+            </div>
+          </div>
+          <div ng-if="varientForm.showMore">
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>SKU</label>
+                <input type="text" class="form-control" ng-model="productVariant.sku">
+              </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>Barcode ID</label>
+                <input type="text" class="form-control" ng-model="productVariant.barcodeId">
+              </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>Min QTY order</label>
+                <input type="number" min="0" class="form-control" ng-model="productVariant.minQtyOrder">
+              </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>Max QTY order</label>
+                <input type="number" min="0" class="form-control" ng-model="productVariant.maxQtyOrder">
+              </div>
+              </div>
+
+            </div>
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                <!-- <label>Reorder Threshold</label>
+                  <input type="number" min="0" class="form-control" ng-model="productVariant.reOrderThreshold"> -->
+
+                <label>Brand</label>
+                <input type="text" min="0" class="form-control" ng-model="productVariant.brand">
+              </div>
+
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>Special Offer</label>
+                <input type="text" class="form-control" ng-model="productVariant.specialOffer">
+              </div>
+              </div>
+
+          </div>
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>Stock</label>
+                <input type="number" min="0" class="form-control" ng-model="productVariant.stock">
+              </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                <label>Shipping Cost</label>
+                <input type="text" class="form-control" ng-model="productVariant.shippingCost">
+              </div>
+              </div>
+
+
+            </div>
+            <div class="row">
+
+              <div class="col-md-4">
+                <div class="form-group">
+                <label style="padding-top:30px;">Customizable</label>
+                <input type="checkbox" ng-model="productVariant.customizable">
+              </div>
+              </div>
+
+
+              <div class="col-md-4">
+                <div class="form-group">
+                <label>Delivery Time</label>
+                <input type="number" min="0" class="form-control" ng-model="productVariant.deliveryTime">
+              </div>
+              </div>
+              <div class="col-md-4" ng-if="productVariant.customizable">
+                <div class="form-group">
+                <label>Delivery Time when Customized</label>
+                <input type="number" min="0" class="form-control" ng-model="productVariant.customisedDeliveryTime">
+              </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+
+          <div class="" style="margin-top:30px;">
+
+            <button class="btn btn-primary" type="button" name="button" style="margin:auto;width:20%;margin-top:20px" ng-click="save()">Save</button>
+          </div>
+        </div>
+
+
+        <div class="row" style="margin:0px;margin-top:20px;">
+          <div class="row">
+
+            <!-- <p>{{productVariantData}}</p> -->
+            <div class="col-md-4" style="padding-left:10px;padding-right:10px;">
+
+              <div class="" style="box-shadow: 0 2px 8px rgba(26,24,20,0.2);text-align:center;height:330px;">
+                <div class="fa fa-plus" style="font-size:50px;text-align:center;padding-top:130px;" ng-click="ShowHide()">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4" ng-repeat="x in productVariantData track by $index" style="margin-bottom:10px;padding-left:10px;padding-right:10px;height:330px;" ng-init="x.inView = 0;">
+              <div class="" style="box-shadow: 0 2px 8px rgba(26,24,20,0.2);border-left: 4px solid #4192cd;display:flex;">
+                <div class="col-md-12 provarient_Cards " style="padding-top:20px;">
+                  <p style="text-align:center;font-weight:600;min-height:40px;">{{x.displayName}}</p>
+
+                  <!-- <img ng-if="f.mediaType == 'image'" ng-src="{{f.attachment}}" style="margin-right:10px;" ng-repeat="f in x.images" height="50" width="75" /> -->
+                  <div class="row">
+                    <div class="col-md-2" ng-click="x.inView = x.inView-1;">
+                      <i class="fa fa-arrow-left" style="margin-top:40px;"></i>
+                    </div>
+                    <div class="col-md-8" style="height: 123px;overflow: hidden;padding:0px;">
+                      <img ng-if="x.images[x.inView].mediaType == 'image'" onerror="this.src='/static/images/noImage.jpeg'" ng-src="{{x.images[x.inView].attachment}}" style="margin-right:10px;" width="100%" />
+                      <img ng-if="x.images.length == 0" src="/static/images/noImage.jpeg" style="margin-right:10px;" width="100%" />
+                    </div>
+                    <div class="col-md-2" ng-click="x.inView =x.inView+ 1;">
+                      <i class="fa fa-arrow-right" style="margin-top:40px;"></i>
+                    </div>
+                  </div>
+
+                  <!-- <p>SKU:{{x.sku}}</p> -->
+                  <div class="" style="padding-top:20px;">
+                    <p>MRP:{{x.price}}</p>
+                    <p>Selling Price:{{x.sellingPrice}}</p>
+
+                  </div>
+
+                  <div class="row" style="padding:10px">
+                    <div class="col-lg-6">
+                      <i class="fa fa-trash " ng-click="$event.stopPropagation();" aria-hidden="true" mwl-confirm title="Approve" message="Are you sure?" confirm-text="Yes <i class='fa fa-check'></i>" cancel-text="No"
+                        on-confirm="deletevariant($index)" confirm-button-type="default" cancel-button-type="default" style="font-size:28px;"></i>
+                    </div>
+                    <div class="col-lg-6 text-right">
+                      <i class="fa fa-pencil editpen" aria-hidden="true" style="font-size:28px;" ng-click="editvariant($index)"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row" style="margin-top:20px;margin-bottom:70px;" ng-if="product.pk">
+      <div class="col-lg-3">
+        <h3>Bulk Order Discount</h3>
+      </div>
+      <div class="col-lg-9" ng-if="product.pk">
+
+        <div class="row" style="margin:0px;">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th style="border-bottom:none">Quantity</th>
+                <th style="border-bottom:none">Discount</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="i in discountArr track by $index" ng-if="i.product == product.pk">
+                <td>{{i.qty}}</td>
+                <td>{{i.discount}}%</td>
+                <td style="width:30px" ng-click="editDiscount(i.pk,$index)"><i class="fa fa-pencil" aria-hidden="true" style="font-size:20px;"></i></td>
+                <td style="text-align:center" mwl-confirm title="Approve" message="Are you sure?" confirm-text="Yes <i class='fa fa-check'></i>" cancel-text="No" on-confirm="deleteDiscount(i.pk,$index)" confirm-button-type="default"
+                  cancel-button-type="default"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:20px;"></i></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-5" style="padding-left:0px;">
+          <input type="text" name="" class="form-control" value="" placeholder="Qty" style="width:100%;" ng-model="discount.qty">
+        </div>
+        <div class="col-md-5">
+          <input type="text" name="" class="form-control" value="" placeholder="Discount" style="width:100%;" ng-model="discount.discount">
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn-primary btn-sm" name="button" ng-click="sendDiscount()" style="border:none;padding:8px 10px;">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3" style="padding-top:600px;padding-left:60px;" ng-if="varientForm.showMore && IsVisible">
+    <!-- <div class="col-md-3" style="padding-top:400px;" ng-if="varientForm.showMore"> -->
+    <h3>Filters Applicable</h3>
+    <div class="row" ng-repeat="(f , values) in varientForm.filters">
+      <label>{{f}}</label> <br>
+
+      <div class="container-fluid">
+        <span ng-repeat="v in values"> <input type="radio" name="{{f}}" ng-model="varientForm.selectedFilters[f]" value="{{v.id}}"> {{v.value}} <br> </span>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
